@@ -143,7 +143,7 @@
                     <previousSchemaPaths/>
                     <schemas/>
                     <subjects>
-                        <Notification>src/main/resources/avro/Notification.avsc</Notification>
+                        <NotificationRequest>src/main/resources/avro/NotificationRequest.avsc</NotificationRequest>
                     </subjects>
                     <outputDirectory>src/main/resources/avro</outputDirectory>
                     <subjectPatterns>

@@ -1,6 +1,6 @@
 package com.innowise.notificationmicroservice.kafka;
 
-import avro.Notification;
+import avro.NotificationRequest;
 import avro.UserDetailsResponse;
 import com.innowise.notificationmicroservice.service.impl.SendEmailServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class KafkaListeners {
     }
 
     @KafkaListener(topics = "${kafka.topics.notification_request}", groupId = "notification_request_id", containerFactory = "listenerContainerFactory")
-    public void notificationRequestListener(Notification notification) {
+    public void notificationRequestListener(NotificationRequest notification) {
         sendEmailService.sendEmail(notification);
     }
 

@@ -1,7 +1,7 @@
 package com.innowise.notificationmicroservice.service;
 
-import avro.Notification;
+import avro.NotificationRequest;
 
 public interface SendEmailService {
-    void sendEmail(Notification notification);
+    void sendEmail(NotificationRequest notification);
 }

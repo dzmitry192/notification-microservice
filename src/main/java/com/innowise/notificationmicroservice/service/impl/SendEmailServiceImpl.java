@@ -1,6 +1,6 @@
 package com.innowise.notificationmicroservice.service.impl;
 
-import avro.Notification;
+import avro.NotificationRequest;
 import com.innowise.notificationmicroservice.service.SendEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +17,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     @Value(value = "${spring.mail.username}")
     private String emailFrom;
 
-    public void sendEmail(Notification notification) {
+    public void sendEmail(NotificationRequest notification) {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(notification.getEmailTo().toString());

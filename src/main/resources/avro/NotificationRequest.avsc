@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "Notification",
+  "name": "NotificationRequest",
   "namespace": "avro",
   "fields": [
     {
