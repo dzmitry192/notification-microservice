@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "Notification",
+  "namespace": "avro",
+  "fields": [
+    {
+      "name": "emailTo",
+      "type": "string"
+    },
+    {
+      "name": "subject",
+      "type": "string"
+    },
+    {
+      "name": "body",
+      "type": "string"
+    }
+  ]
+}

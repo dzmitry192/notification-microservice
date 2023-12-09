@@ -12,11 +12,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -35,7 +38,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             kafkaProducers.sendUserDetailsRequest(new UserDetailsRequest(parseJwt(request)));
             UserDetailsResponse userDetailsResponse = kafkaListeners.waitForUserDetailsResponse();
             if (userDetailsResponse.getStatus() != 200) {
-                throw new Exception();
+                throw new Exception("Invalid jwt token");
             } else {
                 UserDetails userDetails = CustomUserDetails.build(userDetailsResponse.getUserDetails());
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
@@ -58,5 +61,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }
 
         return null;
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }
 }
